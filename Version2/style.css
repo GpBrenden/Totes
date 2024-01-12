@@ -1,0 +1,200 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Adding smooth transitions for all elements */
+*, *::before, *::after {
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #080062; /* Navy blue background */
+    color: #FFD700; /* Gold text - using hex code for consistent browser rendering */
+    line-height: 1.6;
+    text-align: center;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.fade-in {
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+.header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header .logo {
+    position: relative;
+    z-index: 1; 
+    max-width: 250px;
+    height: auto;
+    margin: 0 auto 30px;
+    display: block; /* Centering the logo */
+}
+
+.main-content {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #080062;
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
+.sub-heading {
+    color: #555;
+    margin-bottom: 2em;
+}
+
+.login-form .form-group {
+    margin-bottom: 1.5em;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 0.5em;
+    color: #080062;
+    font-weight: 400;
+}
+
+.input-field {
+    width: 300px;
+    padding: 15px;
+    border: 2px solid #080062;
+    border-radius: 5px;
+    outline: none;
+    font-size: 16px;
+}
+
+.input-field:focus {
+    border-color: #FFD700;
+}
+
+.submit-button {
+    background-color: #001f3f; /* Navy blue button */
+    color: #FFD700;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover {
+    background-color: #004f78;
+    box-shadow: 0 9px 18px rgba(0, 0, 0, 0.3);
+}
+
+.raise {
+    transition: all 0.2s ease;
+}
+
+.raise:hover {
+    transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .header .logo {
+        max-width: 200px;
+    }
+
+    .main-content {
+        padding: 30px;
+    }
+
+    .submit-button {
+        padding: 12px 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .logo {
+        max-width: 150px;
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .submit-button {
+        padding: 10px 20px;
+    }
+}
+.month-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+.month-button {
+    padding: 15px 25px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #080062; /* Navy blue background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.month-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive grid for smaller screens */
+@media (max-width: 600px) {
+    .month-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    }
+    
+    .month-button {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+/* Fade-in effect for the welcome message */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 1.5s ease-out forwards;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Portal</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="https://github.com/GpBrenden/ToteTracking/blob/main/Logo_White.png?raw=true" alt="Company Logo" class="logo fade-in">
+        </header>
+        <main class="main-content shadow">
+            <h1 class="fade-in">Welcome to the Customer Portal</h1>
+            <p class="sub-heading fade-in">Enter your Customer Number below to see tote and delivery information</p>
+            <form id="loginForm" class="login-form">
+                <div class="form-group">
+                    <label for="customerNumber" class="input-label">Customer Number:</label>
+                    <input type="text" id="customerNumber" name="customerNumber" class="input-field" required>
+                </div>
+                <button type="submit" class="submit-button raise">Enter</button>
+            </form>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
