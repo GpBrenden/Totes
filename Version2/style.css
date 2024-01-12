@@ -198,3 +198,36 @@ h1 {
 .fade-in {
     animation: fadeIn 1.5s ease-out forwards;
 }
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #ddd; /* Light grey border */
+    text-align: center;
+    word-wrap: break-word;
+  }
+  
+  th {
+    background-color: #004f78; /* Darker blue */
+    color: #ffffff;
+    cursor: pointer; /* Indicates that the header is clickable for sorting */
+  }
+  
+  tr:nth-child(even) {
+    background-color: #1100ff60; /* Zebra striping */
+  }
+  
+  tfoot tr {
+    background-color: #004f78;
+    color: #ffffff;
+  }
+  
+  tfoot td {
+    font-weight: bold;
+  }
