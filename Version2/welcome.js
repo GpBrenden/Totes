@@ -3,40 +3,36 @@ let customerName; // Declare customerName variable at the top of your script
 // An array to keep track of processed customer names
 const processedCustomerNames = [];
 
-// Function to check for similar customer names and add navigation buttons
+// Function to check for similar customer names and populate the navigation dropdown
+// Function to check for similar customer names and populate the navigation dropdown
 function checkForSimilarCustomerNames(customerName, allRows) {
+  // Clear previous customer options
+  const customerDropdown = document.getElementById('customerDropdown');
+  customerDropdown.innerHTML = '<option value="" disabled selected>Navigate to Other Customers</option>';
+
   // Get the first six characters of the current customer name for comparison
   const currentNamePrefix = customerName.substring(0, 6).toLowerCase();
 
+  // Use a Set to track unique customer names
+  const uniqueCustomerNames = new Set();
+
   // Extract customer names and numbers from all rows
-  const customerInfo = allRows.map(row => {
+  allRows.forEach(row => {
     const columns = row.split(',');
-    return {
-      name: columns[2], // Assuming 'Customer Name' is the third column
-      number: columns[1] // Assuming 'Customer Number' is the second column
-    };
-  });
+    const name = columns[2]; // Assuming 'Customer Name' is the third column
+    const number = columns[1]; // Assuming 'Customer Number' is the second column
 
-  // Create an array to track processed customer names
-  const processedCustomerNames = [];
+    // Check if the name starts with the same six characters and isn't already in the set
+    if (name.toLowerCase().startsWith(currentNamePrefix) && !uniqueCustomerNames.has(name.toLowerCase())) {
+      uniqueCustomerNames.add(name.toLowerCase());
 
-  // Find customers with names that match the first six characters
-  const matchingCustomers = customerInfo.filter(info => 
-    info.name.substring(0, 6).toLowerCase() === currentNamePrefix
-  );
-
-  // Create navigation buttons for each matching customer, but only once for each unique name
-  matchingCustomers.forEach(match => {
-    const matchName = match.name.toLowerCase();
-    if (matchName !== customerName.toLowerCase() && !processedCustomerNames.includes(matchName)) {
-      const navButton = document.createElement('button');
-      navButton.textContent = `Navigate to ${match.name}`;
-      navButton.classList.add('navButton'); // Add the 'navButton' class
-      navButton.onclick = () => navigateToCustomer(match.number);
-      document.body.appendChild(navButton);
-      
-      // Add the processed customer name to the array
-      processedCustomerNames.push(matchName);
+      // Add the customer to the dropdown if it's not the current customer
+      if (name.toLowerCase() !== customerName.toLowerCase()) {
+        const optionElement = document.createElement('option');
+        optionElement.value = number;
+        optionElement.textContent = `Navigate to ${name}`;
+        customerDropdown.appendChild(optionElement);
+      }
     }
   });
 }
@@ -58,17 +54,22 @@ function navigateToCustomer(newCustomerNumber) {
   window.location.href = newUrl.toString();
 }
 // Function to fetch and display data based on the selected month
-function fetchAndDisplayData(selectedMonth, customerNumber, customerName) {
+function fetchAndDisplayData(selectedMonth, customerNumber) {
   fetch('https://raw.githubusercontent.com/GpBrenden/ToteTracking/main/WebView.csv')
     .then(response => response.text())
     .then(csvText => {
       const allRows = csvText.trim().split('\n');
       const headers = allRows.shift().split(',');
+
+      // Find the indices of the columns you want to display
+      const customerNameIndex = headers.indexOf('Customer Name');
+      const dateIndex = headers.indexOf('Date');
+      const quantityIndex = headers.indexOf('Quantity');
+
       let tableHTML = '<table id="dataDisplayTable"><thead><tr>';
-      
-      headers.forEach(header => {
-        tableHTML += `<th>${header}</th>`;
-      });
+      tableHTML += `<th>${headers[customerNameIndex]}</th>`;
+      tableHTML += `<th>${headers[dateIndex]}</th>`;
+      tableHTML += `<th>${headers[quantityIndex]}</th>`;
       tableHTML += '</tr></thead><tbody>';
 
       let totalQuantity = 0;
@@ -76,24 +77,23 @@ function fetchAndDisplayData(selectedMonth, customerNumber, customerName) {
       // Filter rows and create table rows
       allRows.forEach(row => {
         const columns = row.split(',');
-        const date = formatDate(columns[headers.indexOf('Date')]);
-        const month = date.split('/')[0];
+        const customerNumberCell = columns[1]; // Assuming 'Customer Number' is the second column
 
-        if (columns[headers.indexOf('Customer Number')] === customerNumber &&
-            month === selectedMonth) {
+        if (customerNumberCell === customerNumber) {
           tableHTML += '<tr>';
-          columns.forEach(column => {
-            tableHTML += `<td>${column}</td>`;
-          });
+          tableHTML += `<td>${columns[customerNameIndex]}</td>`;
+          tableHTML += `<td>${formatDate(columns[dateIndex])}</td>`;
+          tableHTML += `<td>${columns[quantityIndex]}</td>`;
           tableHTML += '</tr>';
 
           // Add to the total quantity
-          totalQuantity += parseInt(columns[headers.indexOf('Quantity')], 10);
+          totalQuantity += parseInt(columns[quantityIndex], 10);
         }
       });
-      
+
       tableHTML += '</tbody>';
-      tableHTML += `<tfoot><tr><td colspan="${headers.length - 1}">Total Quantity</td><td>${totalQuantity}</td></tr></tfoot>`;
+      // Add a footer row with the total quantity
+      tableHTML += `<tfoot><tr><td colspan="2">Total Quantity</td><td>${totalQuantity}</td></tr></tfoot>`;
       tableHTML += '</table>';
 
       // Display the table in the 'dataDisplay' div
@@ -127,7 +127,7 @@ function initializePage() {
     .then(csvText => {
       // Extract the rows as an array of strings
       const allRows = csvText.trim().split('\n').slice(1);
-
+      
       // Find the current customer's full name from the CSV data
       allRows.forEach(row => {
         const columns = row.split(',');
@@ -154,20 +154,27 @@ document.addEventListener('DOMContentLoaded', function() {
   // Call the initializePage function to set up the page
   initializePage();
   
-  // Get the dropdown element
+  // Get the dropdown elements
   const monthDropdown = document.getElementById('monthDropdown');
+  const customerDropdown = document.getElementById('customerDropdown');
 
-  // Attach a change event listener to the dropdown
+  // Attach a change event listener to the month dropdown
   monthDropdown.addEventListener('change', function() {
     // Get the selected month value from the dropdown
     const selectedMonth = this.value;
 
-    // Parse the URL query parameters for customer number and name
+    // Parse the URL query parameters for customer number
     const params = new URLSearchParams(window.location.search);
     const customerNumber = params.get('number');
-    const customerName = params.get('name'); // Make sure this is declared at the right scope
 
-    // Call fetchAndDisplayData with the selected month, customerNumber, and customerName
-    fetchAndDisplayData(selectedMonth, customerNumber, customerName);
+    // Call fetchAndDisplayData with the selected month and customerNumber
+    fetchAndDisplayData(selectedMonth, customerNumber);
+  });
+
+  // Attach an event listener to the customer dropdown for the 'change' event
+  customerDropdown.addEventListener('change', function() {
+    const selectedCustomerNumber = this.value;
+    // Update the URL with the new customer number and reload the page, or call the relevant function to update the page content
+    navigateToCustomer(selectedCustomerNumber);
   });
 });

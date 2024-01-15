@@ -257,12 +257,15 @@ button.navButton:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     background-color: #004f78; /* Darker blue on hover */
 }
-#monthDropdownContainer {
-    margin: 20px 0;
-    text-align: center;
+#dropdownsContainer {
+    display: flex;
+    justify-content: center; /* Center the dropdowns horizontally */
+    gap: 20px; /* Add some space between the dropdowns */
+    margin: 20px 0; /* Add some margin above and below the container */
   }
   
-  #monthDropdown {
+  #monthDropdown,
+  #customerDropdown {
     padding: 10px 15px;
     border-radius: 30px;
     border: none;
@@ -275,13 +278,14 @@ button.navButton:hover {
     transition: all 0.3s ease-in-out;
   }
   
-  #monthDropdown:hover {
+  #monthDropdown:hover,
+  #customerDropdown:hover {
     box-shadow: 0 5px 25px rgba(118, 75, 162, 0.65);
     transform: scale(1.05);
   }
   
-  #monthDropdown option {
+  #monthDropdown option,
+  #customerDropdown option {
     background: white;
     color: #333;
   }
-  

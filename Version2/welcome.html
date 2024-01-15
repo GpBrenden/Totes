@@ -13,7 +13,7 @@
         </header>
         <main class="main-content shadow">
             <h1 id="welcomeMessage" class="fade-in">Welcome </h1>
-            <div id="monthDropdownContainer">
+            <div id="dropdownsContainer">
                 <select id="monthDropdown" name="months">
                   <option value="" disabled selected>Select Month</option>
                   <option value="01">January</option>
@@ -29,9 +29,13 @@
                   <option value="11">November</option>
                   <option value="12">December</option>
                 </select>
+                <select id="customerDropdown" name="customers">
+                    <option value="" disabled selected>Navigate to Other Customers</option>
+                    <!-- Options will be dynamically populated here -->
+                </select>
               </div>
             <!-- Data display section -->
-            <div id="dataDisplay"></div>
+            <div id="dataDisplay"></div>              
         </main>
     </div>
     <script src="welcome.js"></script>
