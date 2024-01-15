@@ -1,5 +1,8 @@
 let customerName; // Declare customerName variable at the top of your script
 
+// An array to keep track of processed customer names
+const processedCustomerNames = [];
+
 // Function to check for similar customer names and add navigation buttons
 function checkForSimilarCustomerNames(customerName, allRows) {
   // Get the first six characters of the current customer name for comparison
@@ -14,21 +17,30 @@ function checkForSimilarCustomerNames(customerName, allRows) {
     };
   });
 
+  // Create an array to track processed customer names
+  const processedCustomerNames = [];
+
   // Find customers with names that match the first six characters
   const matchingCustomers = customerInfo.filter(info => 
     info.name.substring(0, 6).toLowerCase() === currentNamePrefix
   );
 
-  // Create navigation buttons for each matching customer
+  // Create navigation buttons for each matching customer, but only once for each unique name
   matchingCustomers.forEach(match => {
-    if (match.name.toLowerCase() !== customerName.toLowerCase()) {
+    const matchName = match.name.toLowerCase();
+    if (matchName !== customerName.toLowerCase() && !processedCustomerNames.includes(matchName)) {
       const navButton = document.createElement('button');
       navButton.textContent = `Navigate to ${match.name}`;
+      navButton.classList.add('navButton'); // Add the 'navButton' class
       navButton.onclick = () => navigateToCustomer(match.number);
       document.body.appendChild(navButton);
+      
+      // Add the processed customer name to the array
+      processedCustomerNames.push(matchName);
     }
   });
 }
+
 
 // Function to navigate to the given customer number
 function navigateToCustomer(newCustomerNumber) {
@@ -140,21 +152,22 @@ function initializePage() {
 
 document.addEventListener('DOMContentLoaded', function() {
   // Call the initializePage function to set up the page
-  initializePage();  
+  initializePage();
   
-  // Attach click event listeners to each month button
-  document.querySelectorAll('.month-button').forEach(button => {
-    button.addEventListener('click', function() {
-      const monthName = button.textContent.trim();
-      const month = new Date(Date.parse(monthName + " 1, 2021")).getMonth() + 1;
-      
-      // Parse the URL query parameters for customer number again
-      const params = new URLSearchParams(window.location.search);
-      const customerNumber = params.get('number');
+  // Get the dropdown element
+  const monthDropdown = document.getElementById('monthDropdown');
 
-      // Call fetchAndDisplayData with the month and customerNumber
-      fetchAndDisplayData(month < 10 ? '0' + month : month.toString(), customerNumber, customerName);
+  // Attach a change event listener to the dropdown
+  monthDropdown.addEventListener('change', function() {
+    // Get the selected month value from the dropdown
+    const selectedMonth = this.value;
 
-    });
+    // Parse the URL query parameters for customer number and name
+    const params = new URLSearchParams(window.location.search);
+    const customerNumber = params.get('number');
+    const customerName = params.get('name'); // Make sure this is declared at the right scope
+
+    // Call fetchAndDisplayData with the selected month, customerNumber, and customerName
+    fetchAndDisplayData(selectedMonth, customerNumber, customerName);
   });
 });
