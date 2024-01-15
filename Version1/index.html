@@ -211,10 +211,11 @@
             const customerNameIndex = headers.findIndex(header => header.trim() === "Customer Name");
             const dateIndex = headers.findIndex(header => header.trim() === "Date");
             const quantityIndex = headers.findIndex(header => header.trim() === "Quantity");
+            const whoIndex = headers.findIndex(header => header.trim() === "Who?");
             
             // Filter and map rows
             const filteredRows = dataRows
-                .filter(row => row[customerNumberIndex].trim() === customerNumberInput)
+                .filter(row => row[customerNumberIndex].trim() === customerNumberInput && whoIndex === "LOADG")
                 .map(row => {
                     let quantity = parseFloat(row[quantityIndex].trim());
 
