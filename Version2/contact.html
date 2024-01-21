@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="https://github.com/GpBrenden/ToteTracking/blob/main/Logo_White.png?raw=true" alt="Company Logo" class="logo fade-in">
+        </header>
+        <main class="main-content shadow">
+            <h1 class="fade-in">Contact Us</h1>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="contactName" class="input-label">Name:</label>
+                    <input type="text" id="contactName" name="contactName" class="input-field" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactEmail" class="input-label">Email:</label>
+                    <input type="email" id="contactEmail" name="contactEmail" class="input-field" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactMessage" class="input-label">Message:</label>
+                    <textarea id="contactMessage" name="contactMessage" class="input-field" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-button raise">Submit</button>
+            </form>
+        </main>
+    </div>
+    <script src="contact.js"></script>
+</body>
+</html>
