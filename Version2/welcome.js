@@ -7,7 +7,7 @@ const processedCustomerNames = [];
 function checkForSimilarCustomerNames(customerName, allRows) {
   // Clear previous customer options
   const customerDropdown = document.getElementById('customerDropdown');
-  customerDropdown.innerHTML = '<option value="" disabled selected>Navigate to Other Customers</option>';
+  customerDropdown.innerHTML = '<option value="" disabled selected>Similar Customers</option>';
 
   // Get the first six characters of the current customer name for comparison
   const currentNamePrefix = customerName.substring(0, 6).toLowerCase();
