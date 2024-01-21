@@ -14,6 +14,9 @@
         <main class="main-content shadow">
             <h1 class="fade-in">Contact Us</h1>
             <form id="contactForm" method="POST" data-netlify="true" name="contactForm" class="contact-form">
+                <input type="hidden" name="redirect" value="thank-you.html">
+                <input type="hidden" name="customerNumber" id="customerNumberField">
+                <input type="hidden" name="customerName" id="customerNameField">
                 <div class="form-group">
                     <label for="contactName" class="input-label">Name:</label>
                     <input type="text" id="contactName" name="contactName" class="input-field" required>
@@ -27,8 +30,6 @@
                     <textarea id="contactMessage" name="contactMessage" class="input-field" rows="5" required></textarea>
                 </div>
                 <button type="submit" class="submit-button raise">Submit</button>
-                <input type="hidden" name="customerNumber" id="customerNumberField">
-                <input type="hidden" name="customerName" id="customerNameField">
             </form>
         </main>
     </div>
