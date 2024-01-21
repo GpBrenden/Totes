@@ -2,34 +2,12 @@ document.addEventListener('DOMContentLoaded', function() {
   const form = document.getElementById('contactForm');
 
   form.addEventListener('submit', function(event) {
-      event.preventDefault();
+      // Add additional data or perform validations here
+      // But do not prevent the default form submission
 
-      // Extract customer number and name from the URL parameters
-      const params = new URLSearchParams(window.location.search);
-      const customerNumber = params.get('number') || 'N/A';
-      const customerName = params.get('name') || 'N/A';
-
-      // Append additional custom fields as hidden inputs
-      addHiddenInput(this, 'customerNumber', customerNumber);
-      addHiddenInput(this, 'customerName', customerName);
-
-      // Submit the form
-      fetch('/', {
-          method: 'POST',
-          body: new FormData(this),
-      })
-      .then(() => {
-          // Show submission confirmation
-          alert('Thank you for your submission!');
-          // Redirect after a short delay
-          setTimeout(() => {
-              window.history.back();
-          }, 2000); // 2000 milliseconds = 2 seconds
-      })
-      .catch((error) => {
-          console.error('Error:', error);
-          alert('There was a problem submitting your form. Please try again.');
-      });
+      // Example: Add hidden inputs
+      addHiddenInput(this, 'customerNumber', getParameterByName('number'));
+      addHiddenInput(this, 'customerName', getParameterByName('name'));
   });
 });
 
@@ -39,4 +17,9 @@ function addHiddenInput(form, name, value) {
   input.name = name;
   input.value = value;
   form.appendChild(input);
+}
+
+function getParameterByName(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name) || 'N/A';
 }
