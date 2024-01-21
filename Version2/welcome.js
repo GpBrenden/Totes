@@ -4,7 +4,6 @@ let customerName; // Declare customerName variable at the top of your script
 const processedCustomerNames = [];
 
 // Function to check for similar customer names and populate the navigation dropdown
-// Function to check for similar customer names and populate the navigation dropdown
 function checkForSimilarCustomerNames(customerName, allRows) {
   // Clear previous customer options
   const customerDropdown = document.getElementById('customerDropdown');
@@ -177,4 +176,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update the URL with the new customer number and reload the page, or call the relevant function to update the page content
     navigateToCustomer(selectedCustomerNumber);
   });
+    // Update the contact link with query parameters
+    const queryParams = new URLSearchParams(window.location.search);
+    const customerNumber = queryParams.get('number');
+    const customerName = queryParams.get('name');
+  
+    const contactLink = document.getElementById('contactUsLink');
+    let newHref = 'contact.html';
+    if (customerNumber && customerName) {
+        newHref += `?number=${encodeURIComponent(customerNumber)}&name=${encodeURIComponent(customerName)}`;
+    }
+    contactLink.href = newHref;
 });
