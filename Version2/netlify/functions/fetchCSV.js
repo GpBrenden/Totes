@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+require('dotenv').config();
 
 exports.handler = async function(event, context) {
     const url = 'https://raw.githubusercontent.com/GpBrenden/ToteTracking/main/WebView.csv';
