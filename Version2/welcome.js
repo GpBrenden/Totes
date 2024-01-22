@@ -54,7 +54,7 @@ function navigateToCustomer(newCustomerNumber) {
 }
 // Function to fetch and display data based on the selected month
 function fetchAndDisplayData(selectedMonth, customerNumber) {
-  fetch('https://raw.githubusercontent.com/GpBrenden/ToteTracking/main/WebView.csv')
+  fetch('/.netlify/functions/fetchCSV')
     .then(response => response.text())
     .then(csvText => {
       const allRows = csvText.trim().split('\n');
@@ -121,7 +121,7 @@ function initializePage() {
   let customerName = params.get('name');
 
   // Fetch the CSV data and then proceed with page initialization
-  fetch('https://raw.githubusercontent.com/GpBrenden/ToteTracking/main/WebView.csv')
+  fetch('/.netlify/functions/fetchCSV')
     .then(response => response.text())
     .then(csvText => {
       // Extract the rows as an array of strings
