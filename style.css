@@ -213,3 +213,10 @@ tfoot tr {
 tfoot td {
     font-weight: bold;
 }
+.th-sort-asc::after {
+    content: " \2191"; /* Unicode upwards arrow */
+}
+
+.th-sort-desc::after {
+    content: " \2193"; /* Unicode downwards arrow */
+}
