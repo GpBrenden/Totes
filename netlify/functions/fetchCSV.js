@@ -62,7 +62,12 @@ function filterCSVData(csvText, customerNumber) {
         return record;
     });
 
-    const filteredRecords = records.filter(record => record['Customer Number'] === customerNumber);
+    console.log("All records:", records);
+
+    const filteredRecords = records.filter(record => {
+        console.log(`Comparing ${record['Customer Number']} with ${customerNumber}`);
+        return record['Customer Number'] === customerNumber;
+    });
     console.log("Filtered records for customer number:", customerNumber, filteredRecords);
     return filteredRecords;
 }
