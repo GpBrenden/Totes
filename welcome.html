@@ -7,6 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .tabs {
+            display: flex;
+            cursor: pointer;
+        }
+        .tab {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-bottom: none;
+        }
+        .tab.active {
+            background-color: #fff;
+            border-bottom: 1px solid #fff;
+        }
+        .tab-content {
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -15,23 +41,49 @@
         </header>
         <main class="main-content shadow">
             <h1 id="welcomeMessage" class="fade-in">Welcome</h1>
-            <div id="dropdownsContainer">
-                <select id="monthDropdown" name="months">
-                    <option value="" disabled selected>Select Month</option>
-                    <option value="01">January</option>
-                    <!-- Additional months here -->
-                </select>
-                <select id="customerDropdown" name="customers">
-                    <option value="" disabled selected>Similar Customers</option>
-                    <!-- Options will be dynamically populated here -->
-                </select> 
-            </div>     
-            <div id="dataDisplay"></div>                             
+            <div class="tabs">
+                <div class="tab active" data-tab="totes">Totes</div>
+                <div class="tab" data-tab="crates">Crates</div>
+                <div class="tab" data-tab="announcements">Announcements</div>
+            </div>
+            <div id="totes" class="tab-content active">
+                <p>Content for Totes</p>
+                <!-- Include Totes content here -->
+            </div>
+            <div id="crates" class="tab-content">
+                <p>Content for Crates</p>
+                <!-- Include Crates content here -->
+            </div>
+            <div id="announcements" class="tab-content">
+                <p>Content for Announcements</p>
+                <!-- Include Announcements content here -->
+            </div>                           
         </main>
     </div>
     <div class="contact-link">
         <a href="contact.html" id="contactUsLink" class="submit-button raise">Contact Us</a>   
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tabs = document.querySelectorAll(".tab");
+            const tabContents = document.querySelectorAll(".tab-content");
+
+            tabs.forEach(tab => {
+                tab.addEventListener("click", function() {
+                    tabs.forEach(item => item.classList.remove("active"));
+                    tab.classList.add("active");
+
+                    const tabId = tab.getAttribute("data-tab");
+                    tabContents.forEach(content => {
+                        content.classList.remove("active");
+                        if (content.id === tabId) {
+                            content.classList.add("active");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
     <script src="welcome.js"></script>  
 </body>
 </html>
