@@ -220,3 +220,96 @@ tfoot td {
 .th-sort-desc::after {
     content: " \2193"; /* Unicode downwards arrow */
 }
+/* Tab styles */
+.tabs {
+    display: flex;
+    cursor: pointer;
+    margin-top: 20px;
+    background-color: #004080; /* Blue background for the tab container */
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px 20px;
+    text-align: center;
+    background-color: #004080; /* Blue background for non-selected tabs */
+    color: #fff;
+    border-right: 1px solid #fff;
+    transition: background-color 0.3s ease;
+}
+
+.tab:last-child {
+    border-right: none;
+}
+
+.tab.active {
+    background-color: #607d8b; /* Grey-blue background for selected tab */
+    color: #fff;
+    font-weight: bold;
+}
+
+.tab:hover {
+    background-color: #0059b3; /* Slightly darker blue on hover */
+}
+
+.tab-content {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 20px;
+    display: none;
+    background-color: #f9f9f9; /* Light background for tab content */
+    border-radius: 0 0 5px 5px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.date-picker-button {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    font-size: 1em;
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.date-picker-button:hover {
+    border-color: #0059b3;
+}
+
+.date-picker-button:focus {
+    border-color: #0059b3;
+    box-shadow: 0 0 8px rgba(0, 89, 179, 0.2);
+}
+
+.flatpickr-calendar {
+    z-index: 1000; /* Ensure the date picker is above other elements */
+    position: absolute; /* Positioning for the date picker */
+    left: auto !important; /* Override positioning */
+    right: auto !important; /* Override positioning */
+}
+
+@media (max-width: 768px) {
+    .tab-content {
+        padding: 10px;
+    }
+
+    .date-picker-button {
+        width: 100%; /* Full width on mobile */
+        font-size: 1em; /* Adjust font size for readability */
+    }
+
+    #recordsTable th, #recordsTable td {
+        padding: 8px; /* Smaller padding on mobile */
+        font-size: 0.9em; /* Adjust font size for readability */
+    }
+
+    #summedBalance {
+        font-size: 1em; /* Adjust font size for readability */
+    }
+}

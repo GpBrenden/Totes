@@ -7,32 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .tabs {
-            display: flex;
-            cursor: pointer;
-        }
-        .tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            background-color: #f1f1f1;
-            border: 1px solid #ccc;
-            border-bottom: none;
-        }
-        .tab.active {
-            background-color: #fff;
-            border-bottom: 1px solid #fff;
-        }
-        .tab-content {
-            border: 1px solid #ccc;
-            padding: 10px;
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <div class="container">
@@ -47,8 +22,25 @@
                 <div class="tab" data-tab="announcements">Announcements</div>
             </div>
             <div id="totes" class="tab-content active">
-                <p>Content for Totes</p>
-                <!-- Include Totes content here -->
+                <div id="datePickerContainer">
+                    <button id="datePickerButton" class="date-picker-button">Select Date Range</button>
+                    <input type="text" id="datePicker" style="display: none;">
+                </div>
+                <table id="recordsTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Customer Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Records will be dynamically populated here -->
+                    </tbody>
+                </table>
+                <div id="summedBalance">
+                    <strong>Total Balance:</strong> $<span id="totalBalance">0.00</span>
+                </div>
             </div>
             <div id="crates" class="tab-content">
                 <p>Content for Crates</p>
@@ -63,27 +55,10 @@
     <div class="contact-link">
         <a href="contact.html" id="contactUsLink" class="submit-button raise">Contact Us</a>   
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const tabs = document.querySelectorAll(".tab");
-            const tabContents = document.querySelectorAll(".tab-content");
-
-            tabs.forEach(tab => {
-                tab.addEventListener("click", function() {
-                    tabs.forEach(item => item.classList.remove("active"));
-                    tab.classList.add("active");
-
-                    const tabId = tab.getAttribute("data-tab");
-                    tabContents.forEach(content => {
-                        content.classList.remove("active");
-                        if (content.id === tabId) {
-                            content.classList.add("active");
-                        }
-                    });
-                });
-            });
-        });
-    </script>
-    <script src="welcome.js"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/tabs.js"></script>
+    <script src="js/totes.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

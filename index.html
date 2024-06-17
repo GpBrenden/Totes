@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Portal</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <title>Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -15,20 +12,26 @@
             <img src="images/Logo_White.png" alt="Company Logo" class="logo fade-in">
         </header>
         <main class="main-content shadow">
-            <h1 class="fade-in">Welcome to the Customer Portal</h1>
-            <p class="sub-heading fade-in">Enter your Customer Number below to see tote and delivery information</p>
+            <h1 id="welcomeMessage" class="fade-in">Login</h1>
             <form id="loginForm" class="login-form">
                 <div class="form-group">
-                    <label for="customerNumber" class="input-label">Customer Number:</label>
-                    <input type="text" id="customerNumber" name="customerNumber" class="input-field" required>
+                    <label for="customerNumber" class="input-label">Customer Number</label>
+                    <input type="text" id="customerNumber" class="input-field" required>
                 </div>
-                <button type="submit" class="submit-button raise">Enter</button>
+                <button type="submit" class="submit-button raise">Login</button>
             </form>
         </main>
     </div>
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const customerNumber = document.getElementById('customerNumber').value.trim();
+            if (customerNumber) {
+                window.location.href = `welcome.html?number=${encodeURIComponent(customerNumber)}`;
+            } else {
+                alert('Please enter a valid customer number.');
+            }
+        });
+    </script>
 </body>
-<div class="contact-link">
-    <a href="contact.html" class="submit-button raise">Contact Us</a>
-</div>
 </html>
