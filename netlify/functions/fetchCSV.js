@@ -3,9 +3,8 @@ require('dotenv').config();
 
 exports.handler = async function(event, context) {
     const url = 'https://raw.githubusercontent.com/GpBrenden/ToteTracking/main/WebView.csv';
-
-    // Get the customer number from query parameters
     const customerNumber = event.queryStringParameters.number;
+
     console.log("Received customer number:", customerNumber);
 
     if (!customerNumber) {
@@ -23,6 +22,7 @@ exports.handler = async function(event, context) {
         });
 
         if (!response.ok) {
+            console.error("Failed to fetch CSV:", response.statusText);
             return {
                 statusCode: response.status,
                 body: response.statusText
@@ -32,6 +32,7 @@ exports.handler = async function(event, context) {
         const data = await response.text();
         console.log("Fetched CSV data");
         const filteredData = filterCSVData(data, customerNumber);
+
         console.log("Filtered Data:", filteredData);
 
         return {
